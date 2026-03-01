@@ -41,3 +41,96 @@ graph LR
     C -->|Missing Info| F[Custom Discord Bot]
     F -->|Ask for details| A
     E -->|Issue URL| F
+🛠️ Tech Stack
+Component	Technology	Cost
+Automation Engine	n8n (self-hosted)	$0
+AI Processing	Groq (LLaMA 3)	$0
+Chat Interface	Discord + n8n Trigger Bot	$0
+Issue Tracking	GitHub Issues	$0
+Tunneling	Cloudflare Tunnel	$0
+Response Bot	Custom Discord Bot	$0
+TOTAL		$0
+🚀 Quick Start
+Prerequisites
+n8n self-hosted instance (v2.9.4+)
+
+Cloudflare tunnel (or ngrok)
+
+Discord server with "Manage Server" permissions
+
+GitHub account
+
+5-Minute Setup
+Clone this repository
+
+bash
+git clone https://github.com/yourusername/ops-intake-copilot.git
+cd ops-intake-copilot
+Import the n8n workflow
+
+Open your n8n instance
+
+Go to Workflows → Import from File
+
+Select workflow/ops-intake-copilot.json
+
+Set up Discord bots
+
+Invite n8n Trigger Bot: https://discord.com/discovery/applications/1389933424331980993
+
+Create Custom Bot (see SETUP.md)
+
+Configure credentials in n8n
+
+GitHub Personal Access Token
+
+Groq API Key
+
+Discord Bot Token
+
+Activate the workflow
+
+Toggle the workflow to Active
+
+Test with: App crashes on iPhone with Safari
+
+📚 For detailed instructions, see SETUP.md
+
+💰 Cost Breakdown
+Service	Tier Used	Limits	Cost
+n8n	Self-hosted	Unlimited	$0
+Cloudflare	Free	Unlimited tunnels	$0
+Discord	Free	Unlimited messages	$0
+Groq	Free	500K tokens/minute	$0
+GitHub	Free	Unlimited repos	$0
+Monthly Total			$0
+📝 Examples
+Input: Complete Bug Report
+text
+App crashes when I try to upload a profile picture. 
+Using iPhone 14 Pro with Safari. 
+Click upload button, app closes immediately. 
+This is critical!
+Output: Discord Response
+text
+🔴 **Bug Report Created!**
+
+**Title:** App crashes during upload
+**Device:** iPhone 14 Pro
+**Browser:** Safari
+**Severity:** High
+
+🔗 **GitHub Issue:** https://github.com/user/repo/issues/42
+📚 Documentation
+Setup Guide - Complete installation instructions
+
+Architecture - System design and data flow
+
+Troubleshooting - Common issues and solutions
+
+Examples - Test messages and sample outputs
+
+📄 License
+This project is licensed under the MIT License - see the LICENSE file.
+
+<p align="center"> Built with ❤️ for the developer community <br> <a href="https://github.com/yourusername/ops-intake-copilot">⭐ Star on GitHub</a> </p> ```
