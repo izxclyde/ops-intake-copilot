@@ -33,6 +33,5 @@
 - **Cloudflare** - Tunnel for webhooks
 
 ## 🚀 Quick Start
-[Installation instructions here...]
 
 ## 📊 Example
