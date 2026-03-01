@@ -1,136 +1,188 @@
 # 🤖 Ops Intake Copilot
 
-[![n8n](https://img.shields.io/badge/n8n-v2.9.4-blue)](https://n8n.io)
-[![Groq](https://img.shields.io/badge/Groq-LLaMA%203-green)](https://groq.com)
-[![Discord](https://img.shields.io/badge/Discord-Bot-purple)](https://discord.com)
-[![GitHub](https://img.shields.io/badge/GitHub-Issues-black)](https://github.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Cost](https://img.shields.io/badge/Cost-%240-brightgreen)](https://github.com)
+[![n8n](https://img.shields.io/badge/n8n-self--hosted-EA4B71?logo=n8n&logoColor=white)](https://n8n.io)
+[![Groq](https://img.shields.io/badge/Groq-LLaMA_3-FF4F00?logo=groq&logoColor=white)](https://groq.com)
+[![Discord](https://img.shields.io/badge/Discord-Bot-5865F2?logo=discord&logoColor=white)](https://discord.com)
+[![GitHub Issues](https://img.shields.io/badge/GitHub-Issues-181717?logo=github&logoColor=white)](https://github.com/features/issues)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Cost: $0](https://img.shields.io/badge/Cost-%240-success)](#-cost-breakdown)
 
-**Zero-cost automated bug intake from Discord to GitHub Issues using AI**
+> **Zero-cost automated bug intake from Discord to GitHub Issues using Groq AI.**
 
-## 📋 Table of Contents
-- [Features](#-features)
-- [How It Works](#-how-it-works)
-- [Tech Stack](#-tech-stack)
-- [Quick Start](#-quick-start)
-- [Cost Breakdown](#-cost-breakdown)
-- [Examples](#-examples)
-- [Documentation](#-documentation)
-- [License](#-license)
+Ops Intake Copilot captures bug reports from Discord, uses Groq LLaMA 3 to structure and validate details, and creates clean GitHub Issues automatically. It can also detect incomplete reports or non-bug messages and respond accordingly.
+
+---
 
 ## ✨ Features
 
-| Feature | Description |
-|---------|-------------|
-| 🤖 **AI-Powered Extraction** | Uses Groq LLaMA 3 to parse unstructured bug reports |
-| 📋 **Smart Routing** | Detects questions vs. bugs, asks for missing info |
-| 🐙 **GitHub Integration** | Creates formatted issues with labels and templates |
-| 💰 **100% Free** | Only uses generous free tiers from all platforms |
-| 🚀 **Self-Hosted** | Runs on your own n8n instance with Cloudflare tunnel |
-| 🔄 **Real-time** | Instant processing with Discord webhooks |
+| Feature | What It Does | Why It Matters |
+| --- | --- | --- |
+| 🤖 AI extraction | Uses Groq LLaMA 3 to parse free-form messages into structured bug data | Removes manual triage overhead |
+| 📥 Discord-first intake | Lets users submit bugs where they already chat | Faster reporting, less context switching |
+| 🧠 Smart classification | Detects complete report, incomplete report, or question/chat | Prevents noisy issue creation |
+| 🐙 GitHub Issue creation | Auto-creates standardized GitHub Issues with metadata | Improves engineering workflow quality |
+| 🔁 Follow-up prompts | Requests missing details in Discord when data is incomplete | Improves bug completeness before filing |
+| 💸 Zero-cost stack | Built with free tiers/self-hosted tools | Sustainable for indie teams and OSS |
+
+---
 
 ## 🔄 How It Works
 
-```mermaid
-graph LR
-    A[Discord User] -->|Bug Report| B[n8n Trigger Bot]
-    B -->|Webhook| C[n8n Workflow]
-    C -->|AI Analysis| D[Groq LLaMA 3]
-    C -->|Complete Report| E[GitHub Issues]
-    C -->|Missing Info| F[Custom Discord Bot]
-    F -->|Ask for details| A
-    E -->|Issue URL| F
-🛠️ Tech Stack
-Component	Technology	Cost
-Automation Engine	n8n (self-hosted)	$0
-AI Processing	Groq (LLaMA 3)	$0
-Chat Interface	Discord + n8n Trigger Bot	$0
-Issue Tracking	GitHub Issues	$0
-Tunneling	Cloudflare Tunnel	$0
-Response Bot	Custom Discord Bot	$0
-TOTAL		$0
-🚀 Quick Start
-Prerequisites
-n8n self-hosted instance (v2.9.4+)
+1. A user posts a bug report in a Discord channel.
+2. The **n8n Trigger Bot** captures the message and sends it into the workflow.
+3. n8n calls **Groq LLaMA 3** to extract fields (title, device, browser, severity, repro steps, etc.).
+4. The workflow classifies the message:
+   - ✅ Complete bug report → create GitHub Issue.
+   - ⚠️ Incomplete bug report → ask follow-up in Discord.
+   - 💬 Question/greeting → send a helpful response, no issue created.
+5. A response message is posted back to Discord with either:
+   - the created GitHub Issue link, or
+   - a request for missing information.
 
-Cloudflare tunnel (or ngrok)
+---
 
-Discord server with "Manage Server" permissions
+## 🛠️ Tech Stack
 
-GitHub account
+| Layer | Tool | Usage | Cost |
+| --- | --- | --- | --- |
+| Workflow automation | n8n (self-hosted) | Message orchestration + branching logic | $0 |
+| AI extraction | Groq (LLaMA 3) | NLP parsing + bug data extraction | $0 (free tier) |
+| Chat intake | Discord Bots | User submission + bot replies | $0 |
+| Issue tracking | GitHub Issues | Canonical bug backlog | $0 |
+| Public webhook access | Cloudflare Tunnel | Secure ingress to self-hosted n8n | $0 |
 
-5-Minute Setup
-Clone this repository
+---
 
-bash
-git clone https://github.com/yourusername/ops-intake-copilot.git
+## 🚀 Quick Start
+
+### 1) Clone the repository
+
+```bash
+git clone https://github.com/your-username/ops-intake-copilot.git
 cd ops-intake-copilot
-Import the n8n workflow
+```
 
-Open your n8n instance
+### 2) Prepare required credentials
 
-Go to Workflows → Import from File
+Create and store these values securely:
 
-Select workflow/ops-intake-copilot.json
+```bash
+# Required secrets
+GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxx
+GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxx
+DISCORD_BOT_TOKEN=xxxxxxxxxxxxxxxxx
+```
 
-Set up Discord bots
+### 3) Expose your local n8n instance
 
-Invite n8n Trigger Bot: https://discord.com/discovery/applications/1389933424331980993
+```bash
+# Example: Cloudflare Tunnel
+cloudflared tunnel --url http://localhost:5678
+```
 
-Create Custom Bot (see SETUP.md)
+### 4) Import and configure the workflow in n8n
 
-Configure credentials in n8n
+```bash
+# In n8n UI:
+# Workflows -> Import from File -> select your workflow JSON
+# Then map credentials for GitHub, Groq, and Discord
+```
 
-GitHub Personal Access Token
+### 5) Send a test report in Discord
 
-Groq API Key
+```text
+App crashes when uploading profile photo on iPhone 14 Pro using Safari.
+Steps: Open app -> Profile -> Upload -> Select image.
+Expected: photo uploads.
+Actual: app closes immediately.
+Severity: High.
+```
 
-Discord Bot Token
+If configured correctly, Ops Intake Copilot will create a GitHub Issue and respond with the issue link in Discord.
 
-Activate the workflow
+---
 
-Toggle the workflow to Active
+## 💰 Cost Breakdown
 
-Test with: App crashes on iPhone with Safari
+| Service | Plan | Typical Usage in This Project | Monthly Cost |
+| --- | --- | --- | --- |
+| n8n | Self-hosted | Unlimited local workflow runs | $0 |
+| Groq | Free tier | LLaMA 3 API calls for parsing | $0 |
+| Discord | Free | Bot messaging + channel events | $0 |
+| GitHub | Free | Issue management | $0 |
+| Cloudflare Tunnel | Free | Public endpoint to local n8n | $0 |
+| **Total** |  |  | **$0** |
 
-📚 For detailed instructions, see SETUP.md
+---
 
-💰 Cost Breakdown
-Service	Tier Used	Limits	Cost
-n8n	Self-hosted	Unlimited	$0
-Cloudflare	Free	Unlimited tunnels	$0
-Discord	Free	Unlimited messages	$0
-Groq	Free	500K tokens/minute	$0
-GitHub	Free	Unlimited repos	$0
-Monthly Total			$0
-📝 Examples
-Input: Complete Bug Report
-text
-App crashes when I try to upload a profile picture. 
-Using iPhone 14 Pro with Safari. 
-Click upload button, app closes immediately. 
-This is critical!
-Output: Discord Response
-text
-🔴 **Bug Report Created!**
+## 🧪 Examples
 
-**Title:** App crashes during upload
-**Device:** iPhone 14 Pro
-**Browser:** Safari
-**Severity:** High
+### 1) Complete report (creates issue)
 
-🔗 **GitHub Issue:** https://github.com/user/repo/issues/42
-📚 Documentation
-Setup Guide - Complete installation instructions
+**Input**
 
-Architecture - System design and data flow
+```text
+The dashboard crashes when I click Export CSV.
+Device: MacBook Pro M1
+Browser: Chrome 126
+Steps: Open dashboard -> click Export CSV
+Expected: file downloads
+Actual: blank page with 500 error
+Severity: High
+```
 
-Troubleshooting - Common issues and solutions
+**Behavior**
 
-Examples - Test messages and sample outputs
+- Classified as `complete_bug_report`
+- GitHub Issue created
+- Discord reply includes issue URL
 
-📄 License
-This project is licensed under the MIT License - see the LICENSE file.
+### 2) Incomplete report (asks follow-up)
 
-<p align="center"> Built with ❤️ for the developer community <br> <a href="https://github.com/yourusername/ops-intake-copilot">⭐ Star on GitHub</a> </p> ```
+**Input**
+
+```text
+Login is broken.
+```
+
+**Behavior**
+
+- Classified as `incomplete_bug_report`
+- Bot asks for missing details (device, browser, steps, expected vs actual)
+- No issue created yet
+
+### 3) Question / general message (no issue)
+
+**Input**
+
+```text
+Hey bot, what kind of reports can I send here?
+```
+
+**Behavior**
+
+- Classified as `question_or_chat`
+- Bot responds with guidance/examples
+- No issue created
+
+---
+
+## 📚 Documentation
+
+- [Setup Guide](docs/SETUP.md) — full installation and credential configuration
+- [Troubleshooting](docs/TROUBLESHOOTING.md) — common problems and fixes
+- [Test Messages](examples/test-messages.txt) — ready-to-send message scenarios
+- [Sample Issue](examples/sample-issue.md) — example GitHub issue output
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+<p align="center">
+  Built with 🚀 using n8n + Groq + Discord + GitHub<br />
+  If this helped you, consider giving the repo a ⭐
+</p>

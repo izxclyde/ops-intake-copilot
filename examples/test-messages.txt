@@ -1,0 +1,41 @@
+# Ops Intake Copilot Test Messages
+
+## 1) Complete Reports (should create GitHub issue)
+
+1. App crashes when I tap "Save Profile" on iPhone 14 using Safari. Steps: Open profile -> change avatar -> tap save. Expected: profile saves. Actual: app closes. Severity: High.
+2. Checkout button does nothing on Windows 11 + Chrome 126. Steps: Add item to cart -> open cart -> click checkout. Expected: payment page opens. Actual: no action. Severity: Medium.
+3. Login form returns 500 error on Android 13 with Firefox. Steps: Open login -> enter valid credentials -> submit. Expected: dashboard opens. Actual: server error page. Severity: High.
+4. Notifications panel overlaps content on iPad Safari. Steps: Open dashboard -> click bell icon. Expected: dropdown aligns top-right. Actual: panel covers main content. Severity: Low.
+5. CSV export produces empty file on macOS Sonoma + Edge. Steps: Go to reports -> export CSV. Expected: file with rows. Actual: empty CSV. Severity: Medium.
+
+## 2) Incomplete Reports (should ask follow-up)
+
+1. Search is broken again.
+2. The app is super slow today.
+3. Upload failed.
+4. I cannot submit the form.
+5. Dashboard looks wrong.
+
+## 3) Questions / Greetings (should NOT create issue)
+
+1. Hi bot 👋
+2. How do I report a bug correctly?
+3. Can you show me an example bug report?
+4. Is this channel only for bugs?
+5. Thanks for the help!
+
+## 4) Edge Cases
+
+1. @bot ???
+2. 
+3. CRASH CRASH CRASH!!!
+4. Bug maybe fixed now, ignore previous message.
+5. Login crash on Chrome, maybe extension issue, maybe not sure.
+
+## 5) Expected Behavior Summary
+
+- Complete reports: classify as complete, create GitHub issue, return issue URL.
+- Incomplete reports: ask for missing fields (steps, expected/actual, environment, severity).
+- Questions/greetings: provide help text, no issue created.
+- Edge cases: avoid false positives, avoid crashes, request clarification when uncertain.
+- All categories: ignore bot-authored messages and prevent duplicate issue creation from same message ID.
