@@ -39,6 +39,17 @@ Ops Intake Copilot captures bug reports from Discord, uses Groq LLaMA 3 to struc
    - the created GitHub Issue link, or
    - a request for missing information.
 
+```mermaid
+graph LR
+    A[Discord User] -->|Bug Report| B[n8n Trigger Bot]
+    B -->|Webhook| C[n8n Workflow]
+    C -->|AI Analysis| D[Groq LLaMA 3]
+    C -->|Complete Report| E[GitHub Issues]
+    C -->|Missing Info| F[Custom Discord Bot]
+    F -->|Ask for details| A
+    E -->|Issue URL| F
+```
+
 ---
 
 ## 🛠️ Tech Stack
