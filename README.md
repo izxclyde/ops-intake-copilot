@@ -69,7 +69,7 @@ graph LR
 ### 1) Clone the repository
 
 ```bash
-git clone https://github.com/your-username/ops-intake-copilot.git
+git clone https://github.com/izxclyde/ops-intake-copilot.git
 cd ops-intake-copilot
 ```
 
