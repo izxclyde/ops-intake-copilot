@@ -1,0 +1,75 @@
+name: "🐛 Bug Report"
+description: Report a reproducible issue with clear details
+title: "[Bug]: "
+labels:
+  - bug
+  - triage
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened? Include context and impact.
+      placeholder: Describe the issue clearly.
+    validations:
+      required: true
+
+  - type: input
+    id: device
+    attributes:
+      label: Device
+      description: Device type/model where the issue occurred
+      placeholder: e.g., iPhone 14 Pro, MacBook Pro M1
+    validations:
+      required: false
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser
+      description: Browser and version
+      placeholder: e.g., Chrome 126, Safari 17
+    validations:
+      required: false
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Provide a numbered list of steps to reproduce the issue.
+      placeholder: |
+        1. Go to...
+        2. Click on...
+        3. Observe...
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+      description: What should have happened?
+      placeholder: The app should...
+    validations:
+      required: false
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+      description: What actually happened?
+      placeholder: Instead, the app...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      description: How severe is this issue?
+      options:
+        - Low
+        - Medium
+        - High
+    validations:
+      required: false
